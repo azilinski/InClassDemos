@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 #region Additional Namespaces
 using eResturauntSystem.Entities;
+using eResturauntSystem;
 using eResturauntSystem.DAL;
 using System.ComponentModel; // use for ODS access
 
@@ -25,8 +26,27 @@ namespace eResturauntSystem.BLL
                 //to do so we will use the DbSet in eResturantContext called SpecialEvents
 
                 //method syntax
-                return context.SpecialEvents.OrderBy(x => x.Description).ToList();
+                //return context.SpecialEvents.OrderBy(x => x.Description).ToList();
 
+                //query syntax
+                var results = from item in context.SpecialEvents
+                              orderby item.Description
+                              select item;
+                return results.ToList();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<Reservation> GetReservationsByEventCode(string eventcode)
+        {
+            using (var context = new eRestaurantContext())
+            {
+               
+                var results = from item in context.Reservations
+                              where item.EventCode.Equals(eventcode)
+                              orderby item.CustomerName, item.ReservationDate
+                              select item;
+                return results.ToList();
             }
         }
     }
