@@ -25,6 +25,12 @@ namespace eResturauntSystem.DAL
         public DbSet<SpecialEvent> SpecialEvents { get; set;}
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Table> Tables { get; set; }
+        
+        public DbSet<Bill> Bills { get; set; }
+        public DbSet<BillItem> BillItems { get; set; }
+        public DbSet<Item> Items { get; set; }
+        public DbSet<MenuCategory> MenuCategories { get; set; }
+        public DbSet<Waiter> Waiters { get; set; }
 
         //When overridding OnModleCreating it is important to remember to call the base methods implementation before you exit the method
         //The ManyTOManyNavigationPropertyCOnfiguration.Map method allows you to configure the tables and colums used for many-to-many
