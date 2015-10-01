@@ -29,6 +29,7 @@ namespace eResturauntSystem.Entities
         // via navigation mapping. Therefore we will use a ICollection in this entity
         // refering to the Reservation table
         public virtual ICollection<Reservation> Reservations { get; set; }
+        public virtual ICollection<Bill> Bills { get; set; }
 
         public Table()
         {
