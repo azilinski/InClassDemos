@@ -6,7 +6,10 @@
     <div class="row col-md-12">
         <asp:Repeater ID="MenuCategories" runat="server" DataSourceID="ODSCategoryMenuItems">
             <ItemTemplate>
-                <h3><%# Eval("Description") %></h3>
+                <h3>
+                    <img src='<%# "../images/" + Eval("Description") + "-1.png" %>' width="80" height="80" />
+                    <%# Eval("Description") %>
+                </h3>
                 <asp:Repeater ID="MenuItems" runat="server" DataSource=<%# Eval("MenuItems") %>>
                     <ItemTemplate>
                         <h5><%# Eval("Description") %>
