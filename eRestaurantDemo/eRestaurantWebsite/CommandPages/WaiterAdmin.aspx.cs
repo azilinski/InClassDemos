@@ -14,7 +14,10 @@ public partial class CommandPages_WaiterAdmin : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         //initialize the date hired to today
-        DateHired.Text = DateTime.Today.ToString();
+        if (!Page.IsPostBack)
+        {
+            DateHired.Text = DateTime.Today.ToString();
+        }
     }
     protected void CheckForException(object sender, ObjectDataSourceStatusEventArgs e)
     {
@@ -51,5 +54,56 @@ public partial class CommandPages_WaiterAdmin : System.Web.UI.Page
             {
                 DateReleased.Text = waiter.ReleaseDate.ToString();
             }
-        }    
+        }
+        protected void InsertWaiter_Click(object sender, EventArgs e)
+        {
+            //this example is using the the tryrun inline
+            MessageUserControl.TryRun(() =>
+            {
+                Waiter item = new Waiter();
+                item.FirstName = FirstName.Text;
+                item.LastName = LastName.Text;
+                item.Address = Address.Text;
+                item.Phone = Phone.Text;
+                item.HireDate = DateTime.Parse(DateHired.Text);
+                item.ReleaseDate = null;
+                AdminController sysmgr = new AdminController();
+                WaiterID.Text = sysmgr.Waiter_Add_r_WaiterID(item).ToString();
+                MessageUserControl.ShowInfo("Waiter Added");
+            }
+            );
+        
+        }
+        protected void UpdateWaiter_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(WaiterID.Text))
+            {
+                MessageUserControl.ShowInfo("Please Select A Waiter to Update");
+            }
+            else
+            {
+                MessageUserControl.TryRun(() =>
+                {
+                    Waiter item = new Waiter();
+                    item.WaiterID = int.Parse(WaiterID.Text);
+                    item.FirstName = FirstName.Text;
+                    item.LastName = LastName.Text;
+                    item.Address = Address.Text;
+                    item.Phone = Phone.Text;
+                    item.HireDate = DateTime.Parse(DateHired.Text);
+                    if (string.IsNullOrEmpty(DateReleased.Text))
+                    {
+                        item.ReleaseDate = null;
+                    }
+                    else
+                    {
+                        item.ReleaseDate = DateTime.Parse(DateReleased.Text);
+                    }
+                    AdminController sysmgr = new AdminController();
+                    sysmgr.Waiter_Update(item);
+                    MessageUserControl.ShowInfo("Waiter Updated");
+                }
+           );
+            }
+        }
 }

@@ -4,6 +4,7 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
+    <br /><br /><br /><br />
     <h1>Waiter Admin</h1>
     <br />
     <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
@@ -61,10 +62,10 @@
         </tr>
         <tr>
             <td>
-                <asp:LinkButton ID="InsertWaiter" runat="server">Insert</asp:LinkButton>
+                <asp:LinkButton ID="InsertWaiter" runat="server" OnClick="InsertWaiter_Click">Insert</asp:LinkButton>
             </td>
             <td>
-                <asp:LinkButton ID="UpdateWaiter" runat="server">Update</asp:LinkButton>
+                <asp:LinkButton ID="UpdateWaiter" runat="server" OnClick="UpdateWaiter_Click">Update</asp:LinkButton>
                 
             </td>
         </tr>

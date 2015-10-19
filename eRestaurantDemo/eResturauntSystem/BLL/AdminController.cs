@@ -204,6 +204,28 @@ namespace eResturauntSystem.BLL
                 context.SaveChanges();
             }
         }
+        public int Waiter_Add_r_WaiterID(Waiter item)
+        {
+            //input into this method is at the instance level
+            using (eRestaurantContext context = new eRestaurantContext())
+            {
+                //create a pointer variable for the instance type
+                //set this pointer to null
+                Waiter added = null;
+
+                //set up the add request for the dbcontext
+                added = context.Waiters.Add(item);
+
+                //saving the changes will cause the .Add to execute
+                //commits the add to the database
+                //evaluates the Annotation
+                context.SaveChanges();
+                //added contains the data of the newly added waiter including the pkey value.
+                return added.WaiterID; 
+
+            }
+        }
+
 
         [DataObjectMethod(DataObjectMethodType.Update, false)]
         public void Waiter_Update(Waiter item)
