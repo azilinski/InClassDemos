@@ -88,7 +88,7 @@ namespace eResturauntSystem.BLL
         }
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<CategoryMenuItems> CategoryMenuItems_List()
+        public List<eResturauntSystem.Entities.DTO.CategoryMenuItems> CategoryMenuItems_List()
         {
             using (var context = new eRestaurantContext())
             {
@@ -96,7 +96,7 @@ namespace eResturauntSystem.BLL
                 //query syntax
                 var results = from category in context.MenuCategories
                               orderby category.Description
-                              select new CategoryMenuItems()
+                              select new eResturauntSystem.Entities.DTO.CategoryMenuItems()
                               {
                                   Description = category.Description,
                                   //colletion of navigated rows of ICollection
@@ -134,6 +134,26 @@ namespace eResturauntSystem.BLL
                               where item.WaiterID == waiterID
                               select item;
                 return results.FirstOrDefault();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<eResturauntSystem.Entities.POCOs.CategoryMenuItems> GetReportCategoryMenuItems()
+        {
+            using (eRestaurantContext context = new eRestaurantContext())
+            {
+                var results = from cat in context.Items
+                              orderby cat.Category.Description, cat.Description
+                              select new eResturauntSystem.Entities.POCOs.CategoryMenuItems
+                              {
+                                  CategoryDescription = cat.Category.Description,
+                                  ItemDescription = cat.Description,
+                                  Price = cat.CurrentPrice,
+                                  Calories = cat.Calories,
+                                  Comment = cat.Comment
+                              };
+
+                return results.ToList(); // this was .Dump() in Linqpad
             }
         }
 

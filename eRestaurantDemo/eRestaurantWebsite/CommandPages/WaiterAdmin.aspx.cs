@@ -16,9 +16,21 @@ public partial class CommandPages_WaiterAdmin : System.Web.UI.Page
         //initialize the date hired to today
         if (!Page.IsPostBack)
         {
+            RefreshWaiterList("0");
             DateHired.Text = DateTime.Today.ToString();
         }
     }
+
+    protected void RefreshWaiterList(string selectedvalue)
+    {
+        //force a requery of the DDL
+        WaiterList.DataBind();
+        //insert the prompt line
+        WaiterList.Items.Insert(0, "Select a Waiter");
+        //position on a waiter in the list
+        WaiterList.SelectedValue = selectedvalue;
+    }
+
     protected void CheckForException(object sender, ObjectDataSourceStatusEventArgs e)
     {
         MessageUserControl.HandleDataBoundException(e);
@@ -70,6 +82,7 @@ public partial class CommandPages_WaiterAdmin : System.Web.UI.Page
                 AdminController sysmgr = new AdminController();
                 WaiterID.Text = sysmgr.Waiter_Add_r_WaiterID(item).ToString();
                 MessageUserControl.ShowInfo("Waiter Added");
+                RefreshWaiterList(WaiterID.Text);
             }
             );
         
@@ -102,6 +115,7 @@ public partial class CommandPages_WaiterAdmin : System.Web.UI.Page
                     AdminController sysmgr = new AdminController();
                     sysmgr.Waiter_Update(item);
                     MessageUserControl.ShowInfo("Waiter Updated");
+                    RefreshWaiterList(WaiterID.Text);
                 }
            );
             }

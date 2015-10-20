@@ -8,8 +8,7 @@
     <h1>Waiter Admin</h1>
     <br />
     <uc1:MessageUserControl runat="server" ID="MessageUserControl" />
-    <asp:Label ID="SelectWaiterLB" runat="server" Text="Select Waiter for Update"></asp:Label><asp:DropDownList ID="WaiterList" runat="server" AppendDataBoundItems="True" DataSourceID="ODSWaiter" DataTextField="FullName" DataValueField="WaiterID" Width="318px">
-        <asp:ListItem Value="0">Select a Waiter</asp:ListItem>
+    <asp:Label ID="SelectWaiterLB" runat="server" Text="Select Waiter for Update"></asp:Label><asp:DropDownList ID="WaiterList" runat="server" DataSourceID="ODSWaiter" DataTextField="FullName" DataValueField="WaiterID" Width="318px">
     </asp:DropDownList><asp:LinkButton ID="FetchWaiter" runat="server" OnClick="FetchWaiter_Click">Fetch Waiter</asp:LinkButton>
     
     <br />
