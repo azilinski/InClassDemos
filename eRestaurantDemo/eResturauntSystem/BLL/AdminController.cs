@@ -273,6 +273,7 @@ namespace eResturauntSystem.BLL
         }
         #endregion
 
+        #region Reports
         [DataObjectMethod(DataObjectMethodType.Select,false)]
         public List<WaiterBilling> GetWaiterBillingReport()
         {
@@ -295,5 +296,6 @@ namespace eResturauntSystem.BLL
                 return results.ToList();
             }
         }
+        #endregion
     }//class
 }//namespace
