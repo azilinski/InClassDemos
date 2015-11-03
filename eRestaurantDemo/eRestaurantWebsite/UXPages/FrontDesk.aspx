@@ -32,5 +32,47 @@
             <p>The time uses the ClockPicker Bootstrap extension</p>
         </details>
     </div>
+    
+    <!-- this is the presentation markup code for the reservation display -->
+        <div class="pull-right col-md-5">
+            <!--Details is a coloapsable bootstrap colapsable area-->
+        <details open>
+            <!--Summary: the text displayed by the details icon-->
+            <summary>Reservations by Date/Time</summary>
+            <h4>Today's Reservations</h4>
+            <!--ItemType= parameters must be directed to ypoour current aplication locations-->
+            <asp:Repeater ID="ReservationsRepeater" runat="server"
+                ItemType="eResturauntSystem.Entities.DTO.ReservationCollection" DataSourceID="ReservationsDataSource">
+                <ItemTemplate>
+                    <div>
+                        <h4><%# Item.SeatingTime %></h4>
+                        <asp:ListView ID="ReservationSummaryListView" runat="server"
+                                ItemType="eResturauntSystem.Entities.POCOs.ReservationSummary"
+                                DataSource="<%# Item.Reservations %>">
+                            <LayoutTemplate>
+                                <div class="seating">
+                                    <span runat="server" id="itemPlaceholder" />
+                                </div>
+                            </LayoutTemplate>
+                            <ItemTemplate>
+                                <div>
+                                    <%# Item.Name %> —
+                                    <%# Item.NumberInParty %> —
+                                    <%# Item.Status %> —
+                                    PH:
+                                    <%# Item.Contact %>
+                                </div>
+                            </ItemTemplate>
+                        </asp:ListView>
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
+            <asp:ObjectDataSource runat="server" ID="ReservationsDataSource" OldValuesParameterFormatString="original_{0}" SelectMethod="ReservationsByTime" TypeName="eResturauntSystem.BLL.AdminController">
+                <SelectParameters>
+                    <asp:ControlParameter ControlID="SearchDate" PropertyName="Text" Name="date" Type="DateTime"></asp:ControlParameter>
+                </SelectParameters>
+            </asp:ObjectDataSource>
+        </details>
+    </div>
 </asp:Content>
 
