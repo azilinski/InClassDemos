@@ -3,6 +3,8 @@ using System;
 using System.Linq;
 using System.Web.UI;
 using eRestaurantWebsite;
+using eResturauntSystem.BLL.Security;
+using eResturauntSystem.Entities.Security;
 
 public partial class Account_Register : Page
 {

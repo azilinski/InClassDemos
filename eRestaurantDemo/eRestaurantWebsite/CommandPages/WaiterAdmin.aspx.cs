@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using eResturauntSystem.BLL;
 using eResturauntSystem.Entities;
 using EatIn.UI;
+using Microsoft.AspNet.Identity; // needed for GetUserName(), Extention Method
 
 public partial class CommandPages_WaiterAdmin : System.Web.UI.Page
 {
@@ -16,8 +17,19 @@ public partial class CommandPages_WaiterAdmin : System.Web.UI.Page
         //initialize the date hired to today
         if (!Page.IsPostBack)
         {
+            //check to see if the current user requester is loged in
+            //if not send the user to the login page
+            if (!Request.IsAuthenticated)
+            {
+                Response.Redirect("~/Account/Login.aspx");
+            }
+            else
+            {
+                CurrentUserName.Text = User.Identity.GetUserName();
             RefreshWaiterList("0");
             DateHired.Text = DateTime.Today.ToString();
+            }
+            
         }
     }
 

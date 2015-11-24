@@ -3,6 +3,8 @@ using Microsoft.Owin.Security;
 using System;
 using System.Web;
 using eRestaurantWebsite;
+using eResturauntSystem.BLL.Security;
+using eResturauntSystem.Entities.Security;
 
 public partial class Account_RegisterExternalLogin : System.Web.UI.Page
 {
